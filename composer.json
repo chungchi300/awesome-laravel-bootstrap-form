@@ -2,6 +2,7 @@
   "name": "jeffchung/awesome",
   "description": "",
   "keywords": [],
+  "type":"library",
   "homepage": "http://www.jeff-chung.com",
   "license": "MIT",
   "authors": [
