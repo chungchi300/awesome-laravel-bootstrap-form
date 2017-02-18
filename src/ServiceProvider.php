@@ -1,5 +1,6 @@
 <?php namespace Jeffchung\Awesome;
 
+use Collective\Html\HtmlBuilder;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class ServiceProvider extends LaravelServiceProvider {
@@ -23,6 +24,7 @@ class ServiceProvider extends LaravelServiceProvider {
         // $this->handleViews();
         // $this->handleTranslations();
          $this->handleRoutes();
+         $this->registerFormBuilder();
     }
 //
     /**
@@ -34,6 +36,29 @@ class ServiceProvider extends LaravelServiceProvider {
 
         // Bind any implementations.
 
+    }
+    private function registerFormBuilder()
+    {
+        $this->app->bind(
+            'collective::html',
+            function ($app) {
+                return new HtmlBuilder($app->make('url'), $app->make('view'));
+            }
+        );
+        $this->app->bind(
+            'jeffchungawesome::form',
+            function ($app) {
+                $form = new Form(
+                    $app->make('collective::html'),
+                    $app->make('url'),
+                    $app->make('view'),
+                    $app['session.store']->getToken()
+                );
+
+                return $form->setSessionStore($app['session.store']);
+            },
+            true
+        );
     }
 
     /**

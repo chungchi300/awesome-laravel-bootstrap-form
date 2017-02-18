@@ -12,8 +12,11 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0"
-
+    "php": ">=5.4.0",
+    "laravelcollective/html": "~5",
+    "illuminate/support": "~5",
+    "illuminate/config": "~5",
+    "illuminate/routing": "~5"
   },
     "version": "1.0.0",
   "autoload": {
