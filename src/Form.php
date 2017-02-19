@@ -268,8 +268,15 @@ class Form extends FormBuilder
     }
     public function formSelectFilter($fieldName,$label='',$options,$val,$placeholder='',$attributes=[])
     {
+        if(!$val&&array_key_exists($fieldName,$_GET)){
+            $val = $_GET[$fieldName];
+        }
         if (!$options) {
-            return '';
+            return <<<HTML
+<input type="hidden" name="$fieldName" value="$val" />
+
+HTML;
+
         }
         if (gettype($options) == 'array') {
 
@@ -278,6 +285,7 @@ class Form extends FormBuilder
 
         }
         $helpblock = (array_key_exists('helpblock', $attributes) ? $attributes['helpblock'] : "");
+
 
         $field = $this->select($fieldName, $options, $val, ['placeholder' => $placeholder]);
         return <<<HTML
