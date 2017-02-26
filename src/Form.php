@@ -414,6 +414,24 @@ HTML;
 HTML;
         return $attributes;
     }
+    public function formPassword($name,$label,$placeHolder,$attributes=[]){
+
+        $helpblock = (array_key_exists('helpblock',$attributes) ? $attributes['helpblock'] : "");
+        $attributes['placeholder'] = $placeHolder;
+        $field =   $this->password($name,null,$attributes);
+        return <<<HTML
+
+  <div class="form-group label-static">
+    <label for=$name class="control-label">
+    $label
+</label>
+    $field
+    <p class="help-block">$helpblock</p>
+  </div>
+HTML;
+        return $attributes;
+    }
+
     /**
      * {@inheritdoc}
      * @param string      $name       The name of the email input
